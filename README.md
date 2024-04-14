@@ -51,4 +51,62 @@ The output of this script is a figure with two plots:
 
 These plots can be used to analyze the performance and scalability of the parallel implementation of the Ant Colony Optimization algorithm. The speedup graph shows how much faster the parallel version is compared to the serial version, while the parallel efficiency graph indicates how well the parallel implementation is utilizing the available resources.
 
+## Folder Description 
+
+Ant Colony Optimization Algorithm
+
+This project implements the Ant Colony Optimization (ACO) algorithm in both serial and parallel versions to solve the Traveling Salesman Problem (TSP).
+
+The project consists of four main files: graph.cpp, random.cpp, helpers.h, serial.cpp, and parallel.cpp.
+
+The graph.cpp file is responsible for generating a random graph matrix that represents the distances between cities. It takes a command-line argument specifying the number of cities (e.g., 500) and generates a symmetric adjacency matrix with random distances between 1 and 1000 kilometers. The generated matrix is then saved to the graph.txt file, where the first line contains the number of cities, and the subsequent lines represent the adjacency matrix.
+
+## Folder Structure:
+
+```
+├── graph.cpp: Generates a random graph matrix (graph.txt)
+├── graph.txt: Contains the input map (matrix) for the program
+├── helpers.h: Header file with common functions for serial and parallel programs
+├── parallel.cpp: Implementation of the parallel version of the Ant Colony algorithm using MPI
+├── random.cpp: Generates a set of random numbers
+├── random.txt: Contains the input random numbers for choosing random cities in each iteration
+├── serial.cpp: Implementation of the serial version of the Ant Colony algorithm
+```
+
+## Compile and Run
+
+### Generate input files
+
+To compile and run this project first need to run graph.cpp and random.cpp that will generates the input files for the program.
+
+Generates graph.txt file for the given number of cities (n=100) with maximum distance between two cities(1000kms)
+```
+g++ graph.cpp -o graph.out
+./graph.out
+```
+
+Generates random.txt that utilizes for choosing random city in each iteration
+```
+g++ random.cpp -o random.out
+./random.out <random_number>
+```
+
+### Run serial version of program
+
+Given number of ants travel on all the city and most used edges are passed to the next iteration. After all iterations optimum path is provided. 
+```
+g++ serial.cpp -o serial.out
+./serial.out <graph_file> <random_number_file> <number_of_ants> <number_of_iteration> 
+e.g. ./serial.out graph.txt random.txt 32 150 1
+```
+
+### Run parallel version of program
+
+In each external iteration every node iterates locally and provides optimum path to the master process. Finally master process decide optimum path after all external iterations.
+```
+mpic++ parallel.cpp -o parallel.out
+./parallel.out <graph_file> <random_number_file> <number_of_ants> <number_of_external_iteration> <number_of_iteration_on_each_node>
+e.g. ./parallel.out graph.txt random.txt 32 150 1
+```
+
 
