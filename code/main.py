@@ -1,40 +1,38 @@
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Read the serial and parallel data
-serial_times = []
-parallel_times = []
-
-with open('serial.txt', 'r') as f:
-    for line in f:
-        if 'Time consumed' in line:
-            time_str = line.split(':')[1].strip()
-            serial_times.append(float(time_str.split(' ')[0]))
-
-with open('parallel.txt', 'r') as f:
-    for line in f:
-        if 'Time consumed' in line:
-            time_str = line.split(':')[1].strip()
-            parallel_times.append(float(time_str.split(' ')[0]))
+# Load the CSV files into pandas dataframes
+parallel_df = pd.read_csv('parallel.csv')
+serial_df = pd.read_csv('serial.csv')
 
 # Calculate the speedup and parallel efficiency
-speedup = [st / pt for st, pt in zip(serial_times, parallel_times)]
-parallel_efficiency = [s / len(parallel_times) for s in speedup]
+parallel_df['Speedup'] = serial_df['TimeConsumed'] / parallel_df['TimeConsumed']
+parallel_df['Parallel_Efficiency'] = parallel_df['Speedup'] / parallel_df['Iteration']
 
-# Plot the graphs
-x = np.arange(len(serial_times))
+# Create a figure with three subplots
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 12))
 
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
-
-ax1.plot(x, speedup)
+# Graph 1: Speedup vs Number of Processing Elements
+ax1.plot(parallel_df['Iteration'], parallel_df['Speedup'])
 ax1.set_xlabel('Number of Processing Elements')
 ax1.set_ylabel('Speedup')
-ax1.set_title('Graph 1: N vs Speed Up')
+ax1.set_title('Speedup vs Number of Processing Elements')
+ax1.grid(True)
 
-ax2.plot(x, parallel_efficiency)
-ax2.set_xlabel('Number of Processing Elements')
-ax2.set_ylabel('Parallel Efficiency')
-ax2.set_title('Graph 2: N vs Parallel Efficiency')
+# Graph 2: Speedup vs N
+ax2.plot(parallel_df['Iteration'], parallel_df['Speedup'])
+ax2.set_xlabel('N')
+ax2.set_ylabel('Speedup')
+ax2.set_title('Speedup vs N')
+ax2.grid(True)
+
+# Graph 3: Parallel Efficiency vs Number of Processing Elements
+ax3.plot(parallel_df['Iteration'], parallel_df['Parallel_Efficiency'])
+ax3.set_xlabel('Number of Processing Elements')
+ax3.set_ylabel('Parallel Efficiency')
+ax3.set_title('Parallel Efficiency vs Number of Processing Elements')
+ax3.grid(True)
 
 plt.tight_layout()
 plt.show()
