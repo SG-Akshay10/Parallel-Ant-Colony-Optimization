@@ -46,5 +46,9 @@ The output of this script is a figure with two plots:
     Graph 2: N vs Parallel Efficiency
         This plot shows the parallel efficiency of the parallel implementation as the number of processing elements (iterations) increases.
         The parallel efficiency is calculated as the ratio of the speedup to the number of processing elements (iterations).
+        
+![Performance Analysis Plots](https://github.com/SG-Akshay10/Parallel-Ant-Colony-Optimization/blob/bdf4943d7c427031ec30a854557d250a80bf320b/Output/Screenshot%20from%202024-04-14%2020-17-21.png)
 
 These plots can be used to analyze the performance and scalability of the parallel implementation of the Ant Colony Optimization algorithm. The speedup graph shows how much faster the parallel version is compared to the serial version, while the parallel efficiency graph indicates how well the parallel implementation is utilizing the available resources.
+
+
