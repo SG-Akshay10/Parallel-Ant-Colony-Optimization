@@ -52,6 +52,11 @@ The output of this script is a figure with two plots:
 ![Performance Analysis Plots](https://github.com/SG-Akshay10/Parallel-Ant-Colony-Optimization/blob/main/Output/Screenshot%20from%202024-04-14%2021-09-34.png)
 
 
+![Performance Analysis Plots](https://github.com/SG-Akshay10/Parallel-Ant-Colony-Optimization/blob/main/Output/comparision.png)
+
+
+![Performance Analysis Plots](https://github.com/SG-Akshay10/Parallel-Ant-Colony-Optimization/blob/main/Output/result.png)
+
 
 These plots can be used to analyze the performance and scalability of the parallel implementation of the Ant Colony Optimization algorithm. The speedup graph shows how much faster the parallel version is compared to the serial version, while the parallel efficiency graph indicates how well the parallel implementation is utilizing the available resources.
 
